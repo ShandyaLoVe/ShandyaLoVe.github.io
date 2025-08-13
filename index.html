@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Shandya - 个人主页</title>
   <style>
+    /* 全局超链接悬停效果 */
+    a {
+      color: #007aff;
+      text-decoration: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    a:hover, a:focus {
+      color: #ff6600;       /* 悬停颜色变化 */
+      transform: scale(1.05); /* 放大微动 */
+      text-decoration: underline;
+    }
     /* 移动端适配 */
     @media (max-width: 768px) {
       body {
@@ -175,6 +186,16 @@
       position: relative;
       z-index: 0;
       opacity: 0;
+    }
+    @keyframes avatarBorderPulse {
+      0% { box-shadow: 0 0 12px 6px rgba(0, 122, 255, 0.3); border-color: rgba(0, 122, 255, 1); }
+      25% { box-shadow: 0 0 15px 8px rgba(0, 150, 255, 0.4); border-color: rgba(0, 150, 255, 1); }
+      50% { box-shadow: 0 0 18px 10px rgba(200, 100, 255, 0.5); border-color: rgba(200, 100, 255, 1); }
+      75% { box-shadow: 0 0 15px 8px rgba(0, 150, 255, 0.4); border-color: rgba(0, 150, 255, 1); }
+      100% { box-shadow: 0 0 12px 6px rgba(0, 122, 255, 0.3); border-color: rgba(0, 122, 255, 1); }
+    }
+    .avatar.beat {
+      animation: breatheGlow 3.5s ease-in-out infinite, fadeUpScale 1s ease forwards, avatarBorderPulse 2.5s ease-in-out infinite;
     }
     .avatar img {
       width: 100%;
@@ -454,7 +475,7 @@
   </div>
 
   <h1 class="fade-apple delay-2">Shandya</h1>
-  <h2 class="fade-apple delay-3">代码老趴菜 · 学习小废物</h2>
+  <h2 class="fade-apple delay-3">做喜欢的事和擅长的事</h2>
 
   <p class="fade-apple delay-4">
     你好！我是 Shandya，梦想是能自己实现很多很多有趣的东西。<br />
@@ -560,10 +581,17 @@
       if (audio.paused) {
         audio.play();
         btn.textContent = '⏸️ Pause';
+        document.querySelector('.avatar').classList.add('beat');
       } else {
         audio.pause();
         btn.textContent = '▶️ Play';
+        document.querySelector('.avatar').classList.remove('beat');
       }
+    });
+    // 音乐播放完毕时移除律动动画
+    audio.addEventListener('ended', () => {
+      btn.textContent = '▶️ Play';
+      document.querySelector('.avatar').classList.remove('beat');
     });
 
     window.addEventListener('load', () => {
