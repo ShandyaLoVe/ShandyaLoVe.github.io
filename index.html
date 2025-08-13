@@ -187,15 +187,73 @@
       z-index: 0;
       opacity: 0;
     }
-    @keyframes avatarBorderPulse {
-      0% { box-shadow: 0 0 12px 6px rgba(0, 122, 255, 0.3); border-color: rgba(0, 122, 255, 1); }
-      25% { box-shadow: 0 0 15px 8px rgba(0, 150, 255, 0.4); border-color: rgba(0, 150, 255, 1); }
-      50% { box-shadow: 0 0 18px 10px rgba(200, 100, 255, 0.5); border-color: rgba(200, 100, 255, 1); }
-      75% { box-shadow: 0 0 15px 8px rgba(0, 150, 255, 0.4); border-color: rgba(0, 150, 255, 1); }
-      100% { box-shadow: 0 0 12px 6px rgba(0, 122, 255, 0.3); border-color: rgba(0, 122, 255, 1); }
+    @keyframes avatarBorderWave {
+      0% {
+        box-shadow:
+          0 0 6px 2px rgba(128,0,128,0.35),
+          0 0 12px 4px rgba(128,0,128,0.25),
+          0 0 18px 6px rgba(128,0,128,0.15);
+        border-color: rgba(128,0,128,1);
+      }
+      15% {
+        box-shadow:
+          0 0 6.5px 2.2px rgba(110,0,160,0.37),
+          0 0 13px 4.4px rgba(110,0,160,0.27),
+          0 0 19.5px 6.6px rgba(110,0,160,0.17);
+        border-color: rgba(110,0,160,1);
+      }
+      30% {
+        box-shadow:
+          0 0 7px 2.5px rgba(96,0,192,0.4),
+          0 0 14px 5px rgba(96,0,192,0.3),
+          0 0 21px 7px rgba(96,0,192,0.2);
+        border-color: rgba(96,0,192,1);
+      }
+      45% {
+        box-shadow:
+          0 0 7.5px 2.7px rgba(48,0,224,0.43),
+          0 0 15px 5.5px rgba(48,0,224,0.33),
+          0 0 22.5px 7.8px rgba(48,0,224,0.23);
+        border-color: rgba(48,0,224,1);
+      }
+      60% {
+        box-shadow:
+          0 0 8px 3px rgba(0,0,255,0.45),
+          0 0 16px 6px rgba(0,0,255,0.35),
+          0 0 24px 10px rgba(0,0,255,0.25);
+        border-color: rgba(0,0,255,1);
+      }
+      75% {
+        box-shadow:
+          0 0 8.5px 3.2px rgba(0,128,192,0.45),
+          0 0 17px 6.4px rgba(0,128,192,0.35),
+          0 0 25.5px 10.2px rgba(0,128,192,0.25);
+        border-color: rgba(0,128,192,1);
+      }
+      87% {
+        box-shadow:
+          0 0 9.5px 3.6px rgba(0,192,128,0.48),
+          0 0 19px 7.2px rgba(0,192,128,0.38),
+          0 0 28.5px 10.8px rgba(0,192,128,0.28);
+        border-color: rgba(0,192,128,1);
+      }
+      100% {
+        box-shadow:
+          0 0 6px 2px rgba(128,0,128,0.35),
+          0 0 12px 4px rgba(128,0,128,0.25),
+          0 0 18px 6px rgba(128,0,128,0.15);
+        border-color: rgba(128,0,128,1);
+      }
+    }
+    @keyframes avatarPulseSmall {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
     }
     .avatar.beat {
-      animation: breatheGlow 3.5s ease-in-out infinite, fadeUpScale 1s ease forwards, avatarBorderPulse 2.5s ease-in-out infinite;
+      animation: breatheGlow 3.5s ease-in-out infinite,
+                 fadeUpScale 1s ease forwards,
+                 avatarBorderWave 2.5s ease-in-out infinite,
+                 avatarPulseSmall 1s ease-in-out infinite;
     }
     .avatar img {
       width: 100%;
@@ -478,7 +536,7 @@
   <h2 class="fade-apple delay-3">做喜欢的事和擅长的事</h2>
 
   <p class="fade-apple delay-4">
-    你好！我是 Shandya，梦想是能自己实现很多很多有趣的东西。<br />
+    你好！我是 Shandya（李林山），梦想是能自己实现很多很多有趣的东西。<br />
     我同时对控制科学与人工智能领域十分感兴趣！我渴望学习到更多相关知识。
     如果有任何有趣的东西请与我交流！
   </p>
@@ -499,7 +557,12 @@
         <li>📚 <a href="https://sites.google.com/view/berkeley-cs294-158-sp24/home" target="_blank">CS294-158</a></li>
         <li>🎬 你的友好邻居蜘蛛侠
           <div style="text-align:center; margin-top:6px;">
-            <img src="figure/spiderman.jpeg" alt="蜘蛛侠海报" style="width:80%; height:auto; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1);"/>
+            <video src="figure/sipdervideo.mp4"
+                   autoplay muted playsinline
+                   style="width:80%; height:auto; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1);"
+                   onended="this.pause(); this.currentTime=this.duration - 0.1;">
+              您的浏览器不支持视频播放。
+            </video>
           </div>
         </li>
       </ul>
@@ -509,14 +572,16 @@
     <section class="research-box apple-hover-scale">
       <h2>学术成果</h2>
       <ul>
+        <li style="font-weight:bold; color:#007aff; margin-top:6px; font-size:1.01em; text-align:center; list-style:none;">Information Fusion</li>
         <li class="published">✔️ <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524015718" target="_blank">Combining Permutation Mass Functions based on distance and entropy of Random Permutation Set</a> <span class="journal-info">| Information Sciences | IF: 8.1</span></li>
         <li class="published">✔️ <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524007977" target="_blank">A new distance measure between two basic probability assignments based on penalty coefficient</a> <span class="journal-info">| Information Sciences | IF: 8.1</span></li>
         <li class="published">✔️ <a href="https://www.mdpi.com/2227-7390/12/22/3632" target="_blank">Information Fusion and Decision-Making Utilizing Additional Permutation Information</a> <span class="journal-info">| Mathematics | IF: 2.9</span></li>
         <li class="under-review">🕒 <a href="#">Generation of Permutation Mass Functions in Random Permutation Set Based on Fuzzy Number</a> <span class="journal-info">| CAIE | IF: 6.7</span></li>
         <li class="under-review">🕒 <a href="#">A Novel Method for Generating Permutation Mass Functions using Permutations to Represent Class Bias</a> <span class="journal-info">| ESWA | IF: 8.6</span></li>
+        <li style="font-weight:bold; color:#9b59b6; margin-top:10px; font-size:1.01em; text-align:center; list-style:none;">Computer Vision</li>
         <li class="under-review">🕒 <a href="#">A Similarity-based Label Noise Simulation Approach and Its Impace on the Classification Models for Hyperspectral Images</a> <span class="journal-info">| TGRS | IF: 8.2</span></li>
         <li class="under-review">🕒 <a href="#">FUSION-RV: Feature Unification with Scalable Interaction via RWKV for UAV Detection</a> <span class="journal-info">| Pattern Recognition | IF: 7.2</span></li>
-        <li class="under-review">🕒 <a href="#" target="_blank">DeCo-DETR: Decoupled Cognition DETR for efficient Open-Vocabulary Object Detection</a> <span class="journal-info">| ｜CCF A</span></li>
+        <li class="under-review">🕒 <a href="#" target="_blank">DeCo-DETR: Decoupled Cognition DETR for efficient Open-Vocabulary Object Detection</a> <span class="journal-info">| ｜AAAI2026 ｜ CCF A</span></li>
       </ul>
       <p style="font-size:0.78em; color:#6e6e73; margin-top:4px;">所有非一作期刊论文的一作和通讯为指导老师，且无研究生参与</p>
     </section>
