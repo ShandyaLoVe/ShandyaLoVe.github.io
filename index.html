@@ -21,6 +21,39 @@
       overflow-x: hidden;
     }
 
+    #intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #f5f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: introFadeOut 1s ease forwards;
+      animation-delay: 1.2s;
+    }
+    .intro-image {
+      width: 60%;
+      height: auto;
+      max-width: 350px;
+      object-fit: contain;
+      border-radius: 20px;
+      opacity: 0;
+      transform: translateY(80px) scale(0.85);
+      animation: introImageIn 2s ease-out forwards;
+    }
+    @keyframes introImageIn {
+      0% { opacity: 0; transform: translateY(80px) scale(0.85); filter: brightness(1); }
+      50% { opacity: 1; transform: translateY(-10px) scale(1.55); filter: brightness(1.2); }
+      100% { opacity: 0.5; transform: translateY(0) scale(3.15); filter: brightness(1.3); }
+    }
+    @keyframes introFadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
     .top-image {
       position: relative;
       width: 100vw;
@@ -354,6 +387,9 @@
   </style>
 </head>
 <body>
+  <div id="intro-screen">
+    <img src="figure/Shandya.png" alt="Intro Image" class="intro-image"/>
+  </div>
   <div class="top-image"></div>
   <div class="avatar fade-apple delay-1 breathe-glow">
     <img src="figure/lilinshan.jpg" alt="头像" />
@@ -368,12 +404,10 @@
     如果有任何有趣的东西请与我交流！
   </p>
 
-  <a
-    class="btn fade-apple delay-5"
-    href="https://github.com/yourusername"
-    target="_blank"
-    >访问我的 GitHub</a
-  >
+  <div class="btn-container fade-apple delay-5">
+    <a class="btn" href="https://github.com/ShandyaLoVe" target="_blank">访问GitHub</a>
+    <a class="btn" href="mailto:lilinshanjsu@163.com">现在Email！</a>
+  </div>
 
   <div class="achievement-container fade-apple delay-5">
     <section class="recommend-box apple-hover-scale">
@@ -412,12 +446,21 @@
       <h2>比赛 & 项目</h2>
       <ul>
         <li>🏆 西门子智能制造挑战赛 (信息化网络方向) | 全国二等奖</li>
-        <li>🏆 国际大学生智能农业装备创新大赛 (机器人竞技) | 全国二等奖</li>
+        <li>🏆 国际大学生智能农业装备创新大赛 (机器人竞技) | 全国二等奖
+          <a href="https://youtu.be/MSj6zK4j_dU" target="_blank" style="margin-left:8px; padding:2px 6px; background-color:#007aff; color:white; border-radius:4px; font-size:0.75em; text-decoration:none;">VIDEO</a>
+          <a href="https://github.com/ShandyaLoVe/Dongfanghong" target="_blank" style="margin-left:6px; padding:2px 6px; background-color:#34c759; color:white; border-radius:4px; font-size:0.75em; text-decoration:none;">CODE</a>
+        </li>
         <li>🏆 中国大学生服务外包创新创业大赛 | 全国二等奖</li>
         <li>🏆 全球校园人工智能算法精英大赛算法专项赛 | 全国二等奖</li>
         <li>🏆 机器人及人工智能大赛 | 全国二等奖</li>
         <li>🏆 计算机设计大赛 | 全国三等奖</li>
-        <li>🏆 中国大学生服务外包创新创业大赛 | 全国三等奖</li>
+        <li>🏆 中国大学生服务外包创新创业大赛 | 全国三等奖
+          <a href="https://youtu.be/Z9L54pakXaA" target="_blank" style="margin-left:6px; padding:2px 6px; background-color:#007aff; color:white; border-radius:4px; font-size:0.75em; text-decoration:none;">VIDEO</a>
+          <a href="https://github.com/ShandyaLoVe/FWWB_front-end_code" target="_blank" style="margin-left:6px; padding:2px 6px; background-color:#34c759; color:white; border-radius:4px; font-size:0.75em; text-decoration:none;">CODE</a>
+        </li>
+        <li>💡 基于单目视觉的目标物测量系统设计与实现
+          <a href="https://github.com/ShandyaLoVe/diansai_CV" target="_blank" style="margin-left:6px; padding:2px 6px; background-color:#34c759; color:white; border-radius:4px; font-size:0.75em; text-decoration:none;">CODE</a>
+        </li>
       </ul>
       <p style="font-size:0.78em; color:#6e6e73; margin-top:4px;">点击链接可查看项目演示或代码</p>
     </section>
@@ -464,6 +507,23 @@
         btn.textContent = '▶️ Play';
       }
     });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('intro-screen').style.display = 'none';
+      }, 3500);
+    });
   </script>
 </body>
 </html>
+    .btn-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .btn-container .btn {
+      margin-bottom: 0;
+    }
