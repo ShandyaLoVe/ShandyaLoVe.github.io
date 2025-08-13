@@ -44,12 +44,8 @@
 
     /* 呼吸光晕动画 */
     @keyframes breatheGlow {
-      0%, 100% {
-        box-shadow: 0 0 12px 6px rgba(0, 122, 255, 0.4);
-      }
-      50% {
-        box-shadow: 0 0 28px 12px rgba(0, 122, 255, 0.15);
-      }
+      0%, 100% { box-shadow: 0 0 12px 6px rgba(0, 122, 255, 0.3); }
+      50% { box-shadow: 0 0 24px 12px rgba(0, 122, 255, 0.15); }
     }
 
     @keyframes gentleScale {
@@ -61,6 +57,20 @@
       }
     }
 
+    @keyframes fadeUpScale {
+      0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+      50% { transform: translateY(10px) scale(1.02); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* 延迟动画类 */
+    .fade-apple { opacity: 0; animation: fadeUpScale 1s ease forwards; }
+    .fade-apple.delay-1 { animation-delay: 0.2s; }
+    .fade-apple.delay-2 { animation-delay: 0.4s; }
+    .fade-apple.delay-3 { animation-delay: 0.6s; }
+    .fade-apple.delay-4 { animation-delay: 0.8s; }
+    .fade-apple.delay-5 { animation-delay: 1s; }
+
     .avatar {
       width: 150px;
       height: 150px;
@@ -68,11 +78,12 @@
       overflow: hidden;
       margin-top: -275px;
       border: 4px solid #007aff;
-      animation: breatheGlow 3.5s ease-in-out infinite;
+      animation: breatheGlow 3.5s ease-in-out infinite, fadeUpScale 1s ease forwards;
       background-color: white;
       flex-shrink: 0;
       position: relative;
       z-index: 0;
+      opacity: 0;
     }
     .avatar img {
       width: 100%;
@@ -330,39 +341,49 @@
     .projects-box {
       background-color: #e6f0fa;
     }
+
+    /* 苹果风格模块悬停放大 */
+    .apple-hover-scale {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .apple-hover-scale:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        z-index: 2;
+    }
   </style>
 </head>
 <body>
   <div class="top-image"></div>
-  <div class="avatar fade delay-1">
+  <div class="avatar fade-apple delay-1 breathe-glow">
     <img src="figure/lilinshan.jpg" alt="头像" />
   </div>
 
-  <h1 class="fade delay-2">Shandya</h1>
-  <h2 class="fade delay-3">代码小趴菜 · 学习爱好者</h2>
+  <h1 class="fade-apple delay-2">Shandya</h1>
+  <h2 class="fade-apple delay-3">代码老趴菜 · 学习小废物</h2>
 
-  <p class="fade delay-4">
+  <p class="fade-apple delay-4">
     你好！我是 Shandya，梦想是能自己实现很多很多有趣的东西。<br />
     我同时对控制科学与人工智能领域十分感兴趣！我渴望学习到更多相关知识。
     如果有任何有趣的东西请与我交流！
   </p>
 
   <a
-    class="btn fade delay-5"
+    class="btn fade-apple delay-5"
     href="https://github.com/yourusername"
     target="_blank"
     >访问我的 GitHub</a
   >
 
-  <div class="achievement-container fade delay-5">
-    <section class="recommend-box">
+  <div class="achievement-container fade-apple delay-5">
+    <section class="recommend-box apple-hover-scale">
       <h2>个人推荐</h2>
       <ul>
         <li>🎵 One More Light
           <button id="music-btn">▶️ Play</button>
           <audio id="one-more-light" src="onemorelight.mp3"></audio>
         </li>
-        <li>📚 <a href="https://cs294-158.example.com" target="_blank">CS294-158</a></li>
+        <li>📚 <a href="https://sites.google.com/view/berkeley-cs294-158-sp24/home" target="_blank">CS294-158</a></li>
         <li>🎬 你的友好邻居蜘蛛侠
           <div style="text-align:center; margin-top:6px;">
             <img src="figure/spiderman.jpeg" alt="蜘蛛侠海报" style="width:80%; height:auto; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1);"/>
@@ -372,22 +393,22 @@
       <p style="font-size:0.78em; color:#6e6e73; margin-top:4px;">这是我最近喜欢的东西，强烈安利！</p>
     </section>
 
-    <section class="research-box">
+    <section class="research-box apple-hover-scale">
       <h2>学术成果</h2>
       <ul>
-        <li class="published">✔️ <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524015718?dgcid=coauthor" target="_blank">Combining Permutation Mass Functions based on distance and entropy of Random Permutation Set</a> <span class="journal-info">| Information Sciences | IF: 8.1</span></li>
+        <li class="published">✔️ <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524015718" target="_blank">Combining Permutation Mass Functions based on distance and entropy of Random Permutation Set</a> <span class="journal-info">| Information Sciences | IF: 8.1</span></li>
         <li class="published">✔️ <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524007977" target="_blank">A new distance measure between two basic probability assignments based on penalty coefficient</a> <span class="journal-info">| Information Sciences | IF: 8.1</span></li>
         <li class="published">✔️ <a href="https://www.mdpi.com/2227-7390/12/22/3632" target="_blank">Information Fusion and Decision-Making Utilizing Additional Permutation Information</a> <span class="journal-info">| Mathematics | IF: 2.9</span></li>
         <li class="under-review">🕒 <a href="#">Generation of Permutation Mass Functions in Random Permutation Set Based on Fuzzy Number</a> <span class="journal-info">| CAIE | IF: 6.7</span></li>
         <li class="under-review">🕒 <a href="#">A Novel Method for Generating Permutation Mass Functions using Permutations to Represent Class Bias</a> <span class="journal-info">| ESWA | IF: 8.6</span></li>
         <li class="under-review">🕒 <a href="#">A Similarity-based Label Noise Simulation Approach and Its Impace on the Classification Models for Hyperspectral Images</a> <span class="journal-info">| TGRS | IF: 8.2</span></li>
         <li class="under-review">🕒 <a href="#">FUSION-RV: Feature Unification with Scalable Interaction via RWKV for UAV Detection</a> <span class="journal-info">| Pattern Recognition | IF: 7.2</span></li>
-        <li class="under-review">🕒 <a href="#" target="_blank">DeCo-DETR: Decoupled Cognition DETR for efficient Open-Vocabulary Object Detection</a> <span class="journal-info">| CCF A</span></li>
+        <li class="under-review">🕒 <a href="#" target="_blank">DeCo-DETR: Decoupled Cognition DETR for efficient Open-Vocabulary Object Detection</a> <span class="journal-info">| ｜CCF A</span></li>
       </ul>
       <p style="font-size:0.78em; color:#6e6e73; margin-top:4px;">所有非一作期刊论文的一作和通讯为指导老师，且无研究生参与</p>
     </section>
 
-    <section class="projects-box">
+    <section class="projects-box apple-hover-scale">
       <h2>比赛 & 项目</h2>
       <ul>
         <li>🏆 西门子智能制造挑战赛 (信息化网络方向) | 全国二等奖</li>
@@ -402,36 +423,33 @@
     </section>
   </div>
 
-  <div class="skills fade delay-5">
-    <div class="skill-tag">JavaScript</div>
+  <div class="skills fade-apple delay-5">
     <div class="skill-tag">Python</div>
     <div class="skill-tag">HTML / CSS</div>
-    <div class="skill-tag">React</div>
     <div class="skill-tag">UI/UX 设计</div>
+    <div class="skill-tag">C & C++</div>
+    <div class="skill-tag">Verilog & VHDL</div>
+    <div class="skill-tag">Latex</div>
+    <div class="skill-tag">Python</div>
+    <div class="skill-tag">Matlab</div>
+    <div class="skill-tag">Simulink</div>
+    <div class="skill-tag">Git</div>
+    <div class="skill-tag">PCB</div>
   </div>
 
-  <div class="socials fade delay-5">
-    <a href="https://github.com/yourusername" target="_blank">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-        alt="GitHub"
-      />
+  <div class="socials fade-apple delay-5">
+    <a href="https://github.com/ShandyaLoVe" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"/>
     </a>
-    <a href="https://www.linkedin.com/in/yourusername" target="_blank">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-        alt="LinkedIn"
-      />
+    <a href="mailto:lilinshanjsu@163.com">
+      <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email"/>
     </a>
-    <a href="mailto:youremail@example.com">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/561/561127.png"
-        alt="Email"
-      />
+    <a href="https://orcid.org/0009-0009-5774-8371" target="_blank">
+      <img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" alt="ORCID" style="width:20px;height:20px;"/>
     </a>
   </div>
 
-  <footer class="fade delay-5">© 2025 Shandya | Designed with 🍎 style</footer>
+  <footer class="fade-apple delay-5">© 2025 Shandya </footer>
 
   <script>
     const audio = document.getElementById('one-more-light');
