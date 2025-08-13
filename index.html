@@ -1,211 +1,400 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Shandya - 个人主页</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                "Helvetica Neue", Arial, sans-serif;
-            background-color: #f5f5f7;
-            color: #1d1d1f;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-        }
-        /* 动画效果 */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .fade {
-            opacity: 0;
-            animation: fadeUp 0.8s ease forwards;
-        }
-        .fade.delay-1 {
-            animation-delay: 0.2s;
-        }
-        .fade.delay-2 {
-            animation-delay: 0.4s;
-        }
-        .fade.delay-3 {
-            animation-delay: 0.6s;
-        }
-        .fade.delay-4 {
-            animation-delay: 0.8s;
-        }
-        .fade.delay-5 {
-            animation-delay: 1s;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shandya - 个人主页</title>
+  <style>
+    /* 重置默认边距和字体 */
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      background-color: #f5f5f7;
+      color: #1d1d1f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        /* 头像呼吸动画 */
-        @keyframes breatheGlow {
-            0%,
-            100% {
-                box-shadow: 0 0 8px 4px rgba(0, 122, 255, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 20px 8px rgba(0, 122, 255, 0.15);
-            }
-        }
-        .avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border: 4px solid #007aff;
-            animation: breatheGlow 3.5s ease-in-out infinite;
-        }
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+    .top-image {
+      position: relative;
+      width: 100vw;
+      height: 280px;
+      background: url('figure/Shandya.png') center center/cover no-repeat;
+      animation: gentleScale 15s ease-in-out infinite;
+      margin-bottom: 20px;
+      z-index: -2;
+    }
+    .top-image::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(245, 245, 247, 0.5);
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        h1 {
-            font-size: 2.2em;
-            font-weight: 600;
-            margin: 10px 0 5px 0;
-        }
-        h2 {
-            font-size: 1.2em;
-            font-weight: 400;
-            color: #6e6e73;
-            margin-bottom: 20px;
-        }
-        p {
-            max-width: 600px;
-            line-height: 1.6;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.05em;
-        }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(145deg, #007aff, #0051a8);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 999px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0, 122, 255, 0.4);
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0, 122, 255, 0.5);
-        }
-        .socials {
-            margin-top: 25px;
-            display: flex;
-            gap: 15px;
-        }
-        .socials a {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-            transition: background 0.3s;
-        }
-        .socials a:hover {
-            background-color: #e5e5ea;
-        }
-        .socials img {
-            width: 20px;
-            height: 20px;
-        }
-        .skills {
-            margin-top: 40px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .skill-tag {
-            background-color: #e5e5ea;
-            padding: 8px 16px;
-            border-radius: 999px;
-            font-size: 0.9em;
-            color: #1d1d1f;
-        }
-        footer {
-            margin-top: 50px;
-            font-size: 0.85em;
-            color: #86868b;
-        }
-    </style>
+    /* 呼吸光晕动画 */
+    @keyframes breatheGlow {
+      0%, 100% {
+        box-shadow: 0 0 12px 6px rgba(0, 122, 255, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 28px 12px rgba(0, 122, 255, 0.15);
+      }
+    }
+
+    @keyframes gentleScale {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-top: -275px;
+      border: 4px solid #007aff;
+      animation: breatheGlow 3.5s ease-in-out infinite;
+      background-color: white;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 0;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      font-weight: 600;
+      margin: 10px 0 5px;
+    }
+    h2 {
+      font-size: 1.2em;
+      font-weight: 400;
+      color: #6e6e73;
+      margin-bottom: 20px;
+    }
+    p {
+      max-width: 600px;
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 1.05em;
+      white-space: pre-line;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(145deg, #007aff, #0051a8);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 122, 255, 0.4);
+      margin-bottom: 30px;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 122, 255, 0.5);
+    }
+
+    /* 新增研究部分左右两栏布局及卡片样式 */
+    .research-container {
+      display: flex;
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      font-size: 0.9em;
+    }
+    .research-column {
+      flex: 1;
+      background: white;
+      border-radius: 12px;
+      padding: 20px 25px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+      color: #1d1d1f;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    .research-column h2 {
+      font-weight: 700;
+      font-size: 1.5em;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #007aff;
+      padding-bottom: 6px;
+    }
+    .research-column h3 {
+      color: #007aff;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+    .paper {
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .paper-title {
+      font-weight: 600;
+      font-size: 1em;
+      color: #007aff;
+      text-decoration: none;
+    }
+    .paper-title:hover {
+      text-decoration: underline;
+    }
+    .paper-info {
+      color: #86868b;
+      margin: 2px 0 4px 0;
+    }
+    .under-review .paper-title {
+      color: #ff9500;
+    }
+    .under-review .paper-info {
+      color: #c47b00;
+    }
+
+    /* 技能标签和社交图标样式调整 */
+    .skills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .skill-tag {
+      background-color: #e5e5ea;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.9em;
+      color: #1d1d1f;
+    }
+    .socials {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .socials a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      transition: background 0.3s;
+    }
+    .socials a:hover {
+      background-color: #e5e5ea;
+    }
+    .socials img {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* 淡入上浮动画 */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .fade.delay-1 {
+      animation-delay: 0.2s;
+    }
+    .fade.delay-2 {
+      animation-delay: 0.4s;
+    }
+    .fade.delay-3 {
+      animation-delay: 0.6s;
+    }
+    .fade.delay-4 {
+      animation-delay: 0.8s;
+    }
+    .fade.delay-5 {
+      animation-delay: 1s;
+    }
+
+    footer {
+      font-size: 0.85em;
+      color: #86868b;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-    <!-- 头像 -->
-    <div class="avatar fade delay-1">
-        <img src="https://via.placeholder.com/150" alt="头像" />
+  <div class="top-image"></div>
+  <div class="avatar fade delay-1">
+    <img src="figure/lilinshan.jpg" alt="头像" />
+  </div>
+
+  <h1 class="fade delay-2">Shandya</h1>
+  <h2 class="fade delay-3">代码小趴菜 · 学习爱好者</h2>
+
+  <p class="fade delay-4">
+    你好！我是 Shandya，一名热爱极简与精致设计的开发者。<br />
+    我专注于前端与后端开发，擅长将创意转化为优雅且高性能的产品。
+  </p>
+
+  <a
+    class="btn fade delay-5"
+    href="https://github.com/yourusername"
+    target="_blank"
+    >访问我的 GitHub</a
+  >
+
+  <section class="research-container fade delay-5">
+    <div class="research-column">
+      <h2>📚 期刊论文</h2>
+
+      <p class="note">
+        * 所有非一作期刊论文的一作和通讯为指导老师，且无研究生参与
+      </p>
+
+      <div class="paper-category">
+        <h3><em>Information Fusion</em></h3>
+
+        <article class="paper">
+          <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524015718?dgcid=coauthor" target="_blank" rel="noopener noreferrer" class="paper-title">
+            Combining Permutation Mass Functions based on distance and entropy of Random Permutation Set
+          </a>
+          <p class="paper-info">
+            <strong>期刊：</strong>Information Sciences (CCF B, IF: 8.1) | <strong>一作</strong> | 见刊
+          </p>
+          <p>利用随机排列集合的熵和距离优化融合时信息冲突的问题</p>
+        </article>
+
+        <article class="paper">
+          <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524007977" target="_blank" rel="noopener noreferrer" class="paper-title">
+            A new distance measure between two basic probability assignments based on penalty coefficient
+          </a>
+          <p class="paper-info">
+            Information Sciences (CCF B, IF: 8.1) | 二作 | 见刊
+          </p>
+          <p>利用信息散度和惩罚系数对非独立的信息计算进行距离度量</p>
+        </article>
+
+        <article class="paper">
+          <a href="https://www.mdpi.com/2227-7390/12/22/3632" target="_blank" rel="noopener noreferrer" class="paper-title">
+            Information Fusion and Decision-Making Utilizing Additional Permutation Information
+          </a>
+          <p class="paper-info">
+            mathematics (JCR一区, IF: 2.6) | 二作 | 见刊
+          </p>
+          <p>给出了一种非对称信息进行融合时融合顺序的确定方法</p>
+        </article>
+
+        <article class="paper under-review">
+          <span class="paper-title">Generation of Permutation Mass Functions in Random Permutation Set Based on Fuzzy Number</span>
+          <p class="paper-info">
+            CAIE (JCR一区, IF：6.7) | 二作 | under review
+          </p>
+          <p>提出一种基于三角模糊数和中心值偏向生成排列质量函数的方法</p>
+        </article>
+
+        <article class="paper under-review">
+          <span class="paper-title">A Novel Method for Generating Permutation Mass Functions using Permutations to Represent Class Bias</span>
+          <p class="paper-info">
+            Expert Systems with Applications (双一区Top, IF: 8.6) | 二作 | under review
+          </p>
+          <p>提出了一种基于数据边界和均值生成排列质量函数的方法</p>
+        </article>
+      </div>
+
+      <div class="paper-category">
+        <h3><em>Computer Version</em></h3>
+
+        <article class="paper under-review">
+          <span class="paper-title">A Similarity-based Label Noise Simulation Approach and Its Impace on the Classification Models for Hyperspectral Images</span>
+          <p class="paper-info">
+            TGRS (双一区Top, IF：8.2) | 二作 | under review
+          </p>
+          <p>基于特征距离和转移矩阵提出了一种高光谱图像噪声仿真的方法</p>
+        </article>
+
+        <article class="paper under-review">
+          <span class="paper-title">FUSION-RV: Feature Unification with Scalable Interaction via RWKV for UAV Detection</span>
+          <p class="paper-info">
+            Pattern Recognition (双一区Top, IF：7.2) | 二作 | under review
+          </p>
+          <p>基于 RWKV 轻量级特征融合的UAV条件下RGB-T跨模态高效识别</p>
+        </article>
+      </div>
     </div>
 
-    <!-- 名字与职业 -->
-    <h1 class="fade delay-2">Shandya</h1>
-    <h2 class="fade delay-3">全栈开发者 · 设计爱好者</h2>
+    <div class="research-column">
+      <h2>🗣 会议报告</h2>
+      <div class="paper-category">
+        <h3><em>Computer Version</em></h3>
 
-    <!-- 简介 -->
-    <p class="fade delay-4">
-        你好！我是 Shandya，一名热爱极简与精致设计的开发者。<br />
-        我专注于前端与后端开发，擅长将创意转化为优雅且高性能的产品。
-    </p>
-
-    <!-- 按钮 -->
-    <a
-        class="btn fade delay-5"
-        href="https://github.com/yourusername"
-        target="_blank"
-        >访问我的 GitHub</a
-    >
-
-    <!-- 社交链接 -->
-    <div class="socials fade delay-5">
-        <a href="https://github.com/yourusername" target="_blank">
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                alt="GitHub"
-            />
-        </a>
-        <a href="https://www.linkedin.com/in/yourusername" target="_blank">
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-                alt="LinkedIn"
-            />
-        </a>
-        <a href="mailto:youremail@example.com">
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/561/561127.png"
-                alt="Email"
-            />
-        </a>
+        <article class="paper under-review">
+          <span class="paper-title">DeCo-DETR: Decoupled Cognition DETR for efficient Open-Vocabulary Object Detection</span>
+          <p class="paper-info">
+            AAAI 2026 (CCF A) | under review
+          </p>
+          <p>提出了一种纯视觉的开放词汇目标检测方法DeCo-DETR，引入语义锚池从DETR的注意力机制中动态挖掘层次化语义原型</p>
+        </article>
+      </div>
     </div>
+  </section>
 
-    <!-- 技能 -->
-    <div class="skills fade delay-5">
-        <div class="skill-tag">JavaScript</div>
-        <div class="skill-tag">Python</div>
-        <div class="skill-tag">HTML / CSS</div>
-        <div class="skill-tag">React</div>
-        <div class="skill-tag">UI/UX 设计</div>
-    </div>
+  <div class="skills fade delay-5">
+    <div class="skill-tag">JavaScript</div>
+    <div class="skill-tag">Python</div>
+    <div class="skill-tag">HTML / CSS</div>
+    <div class="skill-tag">React</div>
+    <div class="skill-tag">UI/UX 设计</div>
+  </div>
 
-    <!-- 底部 -->
-    <footer class="fade delay-5">© 2025 Shandya | Designed with 🍎 style</footer>
+  <div class="socials fade delay-5">
+    <a href="https://github.com/yourusername" target="_blank">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+        alt="GitHub"
+      />
+    </a>
+    <a href="https://www.linkedin.com/in/yourusername" target="_blank">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+        alt="LinkedIn"
+      />
+    </a>
+    <a href="mailto:youremail@example.com">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/561/561127.png"
+        alt="Email"
+      />
+    </a>
+  </div>
+
+  <footer class="fade delay-5">© 2025 Shandya | Designed with 🍎 style</footer>
 </body>
 </html>
