@@ -118,58 +118,132 @@
       box-shadow: 0 6px 14px rgba(0, 122, 255, 0.5);
     }
 
-    /* 新增研究部分左右两栏布局及卡片样式 */
-    .research-container {
-      display: flex;
-      gap: 40px;
-      max-width: 900px;
-      margin: 0 auto 40px;
-      font-size: 0.9em;
-    }
-    .research-column {
-      flex: 1;
-      background: white;
+    /* 论文和会议报告统一模块样式 */
+    .research-box, .projects-box {
+      border: 1px solid #d1d1d6;
       border-radius: 12px;
-      padding: 20px 25px;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.05);
-      color: #1d1d1f;
-      max-height: 600px;
-      overflow-y: auto;
+      padding: 12px 16px;
+      max-width: 850px;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s ease;
+      font-size: 0.85em;
     }
-    .research-column h2 {
-      font-weight: 700;
-      font-size: 1.5em;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #007aff;
-      padding-bottom: 6px;
+    .research-box:hover, .projects-box:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
     }
-    .research-column h3 {
-      color: #007aff;
-      margin-bottom: 12px;
-      font-style: italic;
+    .research-box h2 {
+      font-size: 1em;
+      font-weight: 600;
+      color: #1d1d1f; /* 黑色 */
+      margin-bottom: 8px;
     }
-    .paper {
-      margin-bottom: 12px;
+    .projects-box h2 {
+      font-size: 1em;
+      font-weight: 600;
+      color: #ffcc00; /* 黄色 */
+      margin-bottom: 8px;
+    }
+    .research-box ul, .projects-box ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    .research-box li {
+      margin-bottom: 3px;
       line-height: 1.3;
     }
-    .paper-title {
-      font-weight: 600;
+    .research-box ul li.published a {
+      color: #007aff;
+    }
+    .research-box ul li.under-review a {
+      color: #9b59b6;
+    }
+    .research-box ul li a {
+      font-size: 0.78em;
+    }
+    .research-box ul li span.journal-info {
+      font-size: 0.72em;
+      color: #6e6e73;
+      margin-left: 4px;
+    }
+    .projects-box ul li {
+      margin-bottom: 3px;
+      line-height: 1.3;
+      color: #5C4033;
+    }
+
+    /* 新增成就容器样式 */
+    .achievement-container {
+      display: flex;
+      flex-wrap: nowrap; /* 不换行 */
+      gap: 20px;
+      justify-content: flex-start; /* 左对齐 */
+      max-width: 1200px;
+      margin: 0 auto 30px;
+    }
+    .achievement-container .recommend-box,
+    .achievement-container .research-box,
+    .achievement-container .projects-box {
+      flex: 1 1 0; /* 三个模块等分剩余空间 */
+      min-width: 300px;
+    }
+
+    /* 新增个人推荐模块样式 */
+    .recommend-box {
+      border: 1px solid #d1d1d6;
+      border-radius: 12px;
+      padding: 12px 16px;
+      max-width: 400px;
+      background-color: #fffaf0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s ease;
+      font-size: 0.85em;
+      flex: 1 1 400px;
+    }
+    .recommend-box:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .recommend-box h2 {
       font-size: 1em;
+      font-weight: 600;
+      color: #ff6600;
+      margin-bottom: 8px;
+    }
+    .recommend-box ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    .recommend-box li {
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .recommend-box li a {
       color: #007aff;
       text-decoration: none;
     }
-    .paper-title:hover {
+    .recommend-box li a:hover {
       text-decoration: underline;
     }
-    .paper-info {
-      color: #86868b;
-      margin: 2px 0 4px 0;
+    .music-title {
+      cursor: default;
+      color: #007aff;
+      text-decoration: underline;
     }
-    .under-review .paper-title {
-      color: #ff9500;
+    .music-title:hover {
+      color: #0051a8;
     }
-    .under-review .paper-info {
-      color: #c47b00;
+    .recommend-box button {
+      background-color: #fffaf0;
+      color: #007aff;
+      border: none;
+      border-radius: 4px;
+      padding: 2px 6px;
+      cursor: pointer;
+    }
+    .recommend-box button:hover {
+      background-color: #ffeebb; /* 可稍微加深悬停效果 */
     }
 
     /* 技能标签和社交图标样式调整 */
@@ -248,6 +322,14 @@
       color: #86868b;
       margin-bottom: 20px;
     }
+
+    .research-box {
+      background-color: #e6f7ea;
+    }
+
+    .projects-box {
+      background-color: #e6f0fa;
+    }
   </style>
 </head>
 <body>
@@ -260,8 +342,9 @@
   <h2 class="fade delay-3">代码小趴菜 · 学习爱好者</h2>
 
   <p class="fade delay-4">
-    你好！我是 Shandya，一名热爱极简与精致设计的开发者。<br />
-    我专注于前端与后端开发，擅长将创意转化为优雅且高性能的产品。
+    你好！我是 Shandya，梦想是能自己实现很多很多有趣的东西。<br />
+    我同时对控制科学与人工智能领域十分感兴趣！我渴望学习到更多相关知识。
+    如果有任何有趣的东西请与我交流！
   </p>
 
   <a
@@ -271,100 +354,53 @@
     >访问我的 GitHub</a
   >
 
-  <section class="research-container fade delay-5">
-    <div class="research-column">
-      <h2>📚 期刊论文</h2>
+  <div class="achievement-container fade delay-5">
+    <section class="recommend-box">
+      <h2>个人推荐</h2>
+      <ul>
+        <li>🎵 One More Light
+          <button id="music-btn">▶️ Play</button>
+          <audio id="one-more-light" src="onemorelight.mp3"></audio>
+        </li>
+        <li>📚 <a href="https://cs294-158.example.com" target="_blank">CS294-158</a></li>
+        <li>🎬 你的友好邻居蜘蛛侠
+          <div style="text-align:center; margin-top:6px;">
+            <img src="figure/spiderman.jpeg" alt="蜘蛛侠海报" style="width:80%; height:auto; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.1);"/>
+          </div>
+        </li>
+      </ul>
+      <p style="font-size:0.78em; color:#6e6e73; margin-top:4px;">这是我最近喜欢的东西，强烈安利！</p>
+    </section>
 
-      <p class="note">
-        * 所有非一作期刊论文的一作和通讯为指导老师，且无研究生参与
-      </p>
+    <section class="research-box">
+      <h2>学术成果</h2>
+      <ul>
+        <li class="published">✔️ <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524015718?dgcid=coauthor" target="_blank">Combining Permutation Mass Functions based on distance and entropy of Random Permutation Set</a> <span class="journal-info">| Information Sciences | IF: 8.1</span></li>
+        <li class="published">✔️ <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524007977" target="_blank">A new distance measure between two basic probability assignments based on penalty coefficient</a> <span class="journal-info">| Information Sciences | IF: 8.1</span></li>
+        <li class="published">✔️ <a href="https://www.mdpi.com/2227-7390/12/22/3632" target="_blank">Information Fusion and Decision-Making Utilizing Additional Permutation Information</a> <span class="journal-info">| Mathematics | IF: 2.9</span></li>
+        <li class="under-review">🕒 <a href="#">Generation of Permutation Mass Functions in Random Permutation Set Based on Fuzzy Number</a> <span class="journal-info">| CAIE | IF: 6.7</span></li>
+        <li class="under-review">🕒 <a href="#">A Novel Method for Generating Permutation Mass Functions using Permutations to Represent Class Bias</a> <span class="journal-info">| ESWA | IF: 8.6</span></li>
+        <li class="under-review">🕒 <a href="#">A Similarity-based Label Noise Simulation Approach and Its Impace on the Classification Models for Hyperspectral Images</a> <span class="journal-info">| TGRS | IF: 8.2</span></li>
+        <li class="under-review">🕒 <a href="#">FUSION-RV: Feature Unification with Scalable Interaction via RWKV for UAV Detection</a> <span class="journal-info">| Pattern Recognition | IF: 7.2</span></li>
+        <li class="under-review">🕒 <a href="#" target="_blank">DeCo-DETR: Decoupled Cognition DETR for efficient Open-Vocabulary Object Detection</a> <span class="journal-info">| CCF A</span></li>
+      </ul>
+      <p style="font-size:0.78em; color:#6e6e73; margin-top:4px;">所有非一作期刊论文的一作和通讯为指导老师，且无研究生参与</p>
+    </section>
 
-      <div class="paper-category">
-        <h3><em>Information Fusion</em></h3>
-
-        <article class="paper">
-          <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524015718?dgcid=coauthor" target="_blank" rel="noopener noreferrer" class="paper-title">
-            Combining Permutation Mass Functions based on distance and entropy of Random Permutation Set
-          </a>
-          <p class="paper-info">
-            <strong>期刊：</strong>Information Sciences (CCF B, IF: 8.1) | <strong>一作</strong> | 见刊
-          </p>
-          <p>利用随机排列集合的熵和距离优化融合时信息冲突的问题</p>
-        </article>
-
-        <article class="paper">
-          <a href="https://www.sciencedirect.com/science/article/abs/pii/S0020025524007977" target="_blank" rel="noopener noreferrer" class="paper-title">
-            A new distance measure between two basic probability assignments based on penalty coefficient
-          </a>
-          <p class="paper-info">
-            Information Sciences (CCF B, IF: 8.1) | 二作 | 见刊
-          </p>
-          <p>利用信息散度和惩罚系数对非独立的信息计算进行距离度量</p>
-        </article>
-
-        <article class="paper">
-          <a href="https://www.mdpi.com/2227-7390/12/22/3632" target="_blank" rel="noopener noreferrer" class="paper-title">
-            Information Fusion and Decision-Making Utilizing Additional Permutation Information
-          </a>
-          <p class="paper-info">
-            mathematics (JCR一区, IF: 2.6) | 二作 | 见刊
-          </p>
-          <p>给出了一种非对称信息进行融合时融合顺序的确定方法</p>
-        </article>
-
-        <article class="paper under-review">
-          <span class="paper-title">Generation of Permutation Mass Functions in Random Permutation Set Based on Fuzzy Number</span>
-          <p class="paper-info">
-            CAIE (JCR一区, IF：6.7) | 二作 | under review
-          </p>
-          <p>提出一种基于三角模糊数和中心值偏向生成排列质量函数的方法</p>
-        </article>
-
-        <article class="paper under-review">
-          <span class="paper-title">A Novel Method for Generating Permutation Mass Functions using Permutations to Represent Class Bias</span>
-          <p class="paper-info">
-            Expert Systems with Applications (双一区Top, IF: 8.6) | 二作 | under review
-          </p>
-          <p>提出了一种基于数据边界和均值生成排列质量函数的方法</p>
-        </article>
-      </div>
-
-      <div class="paper-category">
-        <h3><em>Computer Version</em></h3>
-
-        <article class="paper under-review">
-          <span class="paper-title">A Similarity-based Label Noise Simulation Approach and Its Impace on the Classification Models for Hyperspectral Images</span>
-          <p class="paper-info">
-            TGRS (双一区Top, IF：8.2) | 二作 | under review
-          </p>
-          <p>基于特征距离和转移矩阵提出了一种高光谱图像噪声仿真的方法</p>
-        </article>
-
-        <article class="paper under-review">
-          <span class="paper-title">FUSION-RV: Feature Unification with Scalable Interaction via RWKV for UAV Detection</span>
-          <p class="paper-info">
-            Pattern Recognition (双一区Top, IF：7.2) | 二作 | under review
-          </p>
-          <p>基于 RWKV 轻量级特征融合的UAV条件下RGB-T跨模态高效识别</p>
-        </article>
-      </div>
-    </div>
-
-    <div class="research-column">
-      <h2>🗣 会议报告</h2>
-      <div class="paper-category">
-        <h3><em>Computer Version</em></h3>
-
-        <article class="paper under-review">
-          <span class="paper-title">DeCo-DETR: Decoupled Cognition DETR for efficient Open-Vocabulary Object Detection</span>
-          <p class="paper-info">
-            AAAI 2026 (CCF A) | under review
-          </p>
-          <p>提出了一种纯视觉的开放词汇目标检测方法DeCo-DETR，引入语义锚池从DETR的注意力机制中动态挖掘层次化语义原型</p>
-        </article>
-      </div>
-    </div>
-  </section>
+    <section class="projects-box">
+      <h2>比赛 & 项目</h2>
+      <ul>
+        <li>🏆 西门子智能制造挑战赛 (信息化网络方向) | 全国二等奖</li>
+        <li>🏆 国际大学生智能农业装备创新大赛 (机器人竞技) | 全国二等奖</li>
+        <li>🏆 中国大学生服务外包创新创业大赛 | 全国二等奖</li>
+        <li>🏆 全球校园人工智能算法精英大赛算法专项赛 | 全国二等奖</li>
+        <li>🏆 机器人及人工智能大赛 | 全国二等奖</li>
+        <li>🏆 计算机设计大赛 | 全国三等奖</li>
+        <li>🏆 中国大学生服务外包创新创业大赛 | 全国三等奖</li>
+      </ul>
+      <p style="font-size:0.78em; color:#6e6e73; margin-top:4px;">点击链接可查看项目演示或代码</p>
+    </section>
+  </div>
 
   <div class="skills fade delay-5">
     <div class="skill-tag">JavaScript</div>
@@ -396,5 +432,20 @@
   </div>
 
   <footer class="fade delay-5">© 2025 Shandya | Designed with 🍎 style</footer>
+
+  <script>
+    const audio = document.getElementById('one-more-light');
+    const btn = document.getElementById('music-btn');
+
+    btn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '⏸️ Pause';
+      } else {
+        audio.pause();
+        btn.textContent = '▶️ Play';
+      }
+    });
+  </script>
 </body>
 </html>
