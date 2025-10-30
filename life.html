@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shandya (李林山) | Life</title>
+    <title>Shandya | Life</title>
     <link rel="icon" href="figure/logo.jpg" type="image/jpeg">
     <!-- Shared CSS for all pages -->
     <style>
@@ -171,14 +171,51 @@
 
         .photo-grid {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 10px;
+            overflow-x: hidden;
+            padding-bottom: 10px;
+            cursor: grab;
+            user-select: none;
         }
-        .photo-grid img {
-            width: calc(33.33% - 6.66px);
+        .photo-grid.active {
+            cursor: grabbing;
+        }
+        /* NEW: Wrapper for each photo */
+        .photo-item {
+            flex-shrink: 0; /* Prevent items from shrinking */
+            width: calc(33.333% - 6.67px);
+            min-width: calc(33.333% - 6.67px);
+        }
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            display: block; /* Remove bottom space */
             border-radius: 6px;
             object-fit: cover;
+            pointer-events: none; /* Keep this to prevent image dragging */
         }
+
+        /* NEW: Custom Tooltip Styles */
+        #photo-tooltip {
+            position: fixed; /* Use fixed to position relative to viewport */
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease-in-out;
+            pointer-events: none; /* Tooltip itself should not be interactive */
+            max-width: 250px;
+        }
+        #photo-tooltip.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
 
         @media (max-width: 900px) {
             .container {
@@ -197,7 +234,7 @@
             }
         }
         @media (max-width: 600px) {
-            .photo-grid img {
+            .photo-item { /* Adjust width for mobile */
                 width: 100%;
             }
         }
@@ -208,7 +245,7 @@
         <aside class="sidebar">
             <div class="profile-card">
                 <img src="figure/lilinshan.jpg" alt="Avatar" class="avatar">
-                <h1>Shandya (李林山)</h1>
+                <h1>Shandya</h1>
             </div>
             <ul class="info-list">
                 <li><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg><span>M.S. @ Zhejiang University</span></li>
@@ -229,6 +266,24 @@
                 <h2 class="page-title">Life & Interests</h2>
                 <hr style="border: 0.8px solid var(--border-color); margin-bottom: 20px;">
                 <div class="life-grid">
+                    <div class="life-card grid-span-2">
+                        <h3>📷 Photos</h3>
+                        <div class="photo-grid">
+                            <!-- NEW: Each image is wrapped in a div with the title -->
+                            <div class="photo-item" title="This is the most precious photo of my life">
+                                <img src="figure/photo_1.png" alt="Favorite Photo 1">
+                            </div>
+                            <div class="photo-item" title="A journey to commemorate someone special">
+                                <img src="figure/photo_2.jpg" alt="Favorite Photo 2">
+                            </div>
+                            <div class="photo-item" title="Thanks to my brother for taking me to the hospital after I got drunk">
+                                <img src="figure/photo_3.jpg" alt="Favorite Photo 3">
+                            </div>
+                             <div class="photo-item" title="Thank you for appearing in my life">
+                                <img src="figure/photo_4.jpg" alt="Favorite Photo 4">
+                            </div>
+                        </div>
+                    </div>
                     <div class="life-card">
                         <h3>🎵 Music</h3>
                         <p style="text-align:center; margin-bottom:10px;">One More Light</p>
@@ -249,7 +304,6 @@
                         <p></p>
                     </div>
                     <div class="life-card">
-                        <!-- THE FIX IS HERE: Title is now outside the centering div -->
                         <h3>📖 Books</h3>
                         <div style="display:flex; justify-content:center; gap:20px; margin-top: 15px;">
                             <a href="https://zh.z-library.sk/book/5723780/fd606f/%E9%9D%A2%E7%BA%B1.html" target="_blank" style="text-decoration:none; color:inherit; text-align:center;">
@@ -262,35 +316,169 @@
                             </a>
                         </div>
                     </div>
-                    <div class="life-card grid-span-2">
-                        <h3>📷 Photos</h3>
-                        <div class="photo-grid">
-                            <img src="figure/photo_1.png" alt="Favorite Photo 1" title="This is the most precious photo of my life">
-                            <img src="figure/photo_2.jpg" alt="Favorite Photo 2" title="A journey to commemorate someone special">
-                            <img src="figure/photo_3.jpg" alt="Favorite Photo 3" title="Thanks to my brother for taking me to the hospital after I got drunk">
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>
     </div>
-</body>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const audio = document.querySelector('audio');
-    const avatar = document.querySelector('.avatar');
 
-    if (audio && avatar) {
-        audio.addEventListener('play', () => {
-            avatar.classList.add('beat');
+    <!-- NEW: Custom tooltip element added to the end of body -->
+    <div id="photo-tooltip"></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const audio = document.querySelector('audio');
+        const avatar = document.querySelector('.avatar');
+
+        if (audio && avatar) {
+            audio.addEventListener('play', () => {
+                avatar.classList.add('beat');
+            });
+            audio.addEventListener('pause', () => {
+                avatar.classList.remove('beat');
+            });
+            audio.addEventListener('ended', () => {
+                avatar.classList.remove('beat');
+            });
+        }
+    });
+    </script>
+
+    <!-- ==================== NEW SCRIPT FOR PHOTO GRID ==================== -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.photo-grid');
+        if (!container) return;
+
+        const originalPhotos = Array.from(container.children);
+        // Duplicate photos for seamless looping
+        originalPhotos.forEach(photo => {
+            container.appendChild(photo.cloneNode(true));
         });
-        audio.addEventListener('pause', () => {
-            avatar.classList.remove('beat');
+
+        let autoScrollInterval;
+        const scrollIntervalTime = 10000;
+
+        // Mouse Drag variables
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        // --- Functions ---
+        const getSingleImageWidth = () => {
+            if (originalPhotos.length === 0) return 0;
+            const style = window.getComputedStyle(container);
+            const gap = parseFloat(style.gap) || 10;
+            return originalPhotos[0].clientWidth + gap;
+        };
+
+        const totalOriginalWidth = () => {
+             return getSingleImageWidth() * originalPhotos.length;
+        }
+
+        const autoScroll = () => {
+            const imgWidth = getSingleImageWidth();
+            if (imgWidth === 0) return;
+
+            let nextImageIndex = Math.round(container.scrollLeft / imgWidth) + 1;
+            let targetScrollLeft = nextImageIndex * imgWidth;
+
+            if (targetScrollLeft >= totalOriginalWidth()) {
+                container.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+                setTimeout(() => {
+                    container.style.scrollBehavior = 'auto';
+                    container.scrollLeft = targetScrollLeft - totalOriginalWidth();
+                    container.style.scrollBehavior = 'smooth';
+                }, 500);
+            } else {
+                 container.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+            }
+        };
+
+        const startAutoScroll = () => {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = setInterval(autoScroll, scrollIntervalTime);
+        };
+
+        // --- Event Listeners for Dragging ---
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            container.classList.add('active');
+            clearInterval(autoScrollInterval);
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
         });
-        audio.addEventListener('ended', () => {
-            avatar.classList.remove('beat');
+
+        container.addEventListener('mouseleave', () => {
+            if (!isDown) return;
+            isDown = false;
+            container.classList.remove('active');
+            autoScroll();
+            startAutoScroll();
         });
-    }
-});
-</script>
-</html>```
+
+        container.addEventListener('mouseup', () => {
+            if (!isDown) return;
+            isDown = false;
+            container.classList.remove('active');
+            autoScroll();
+            startAutoScroll();
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX);
+            let newScrollLeft = scrollLeft - walk;
+
+            const totalWidth = totalOriginalWidth();
+            if(newScrollLeft >= totalWidth) {
+                scrollLeft += totalWidth;
+                newScrollLeft -= totalWidth;
+            }
+            if(newScrollLeft < 0) {
+                scrollLeft -= totalWidth;
+                newScrollLeft += totalWidth;
+            }
+            container.scrollLeft = newScrollLeft;
+        });
+
+        // --- NEW: Tooltip Logic ---
+        const tooltip = document.getElementById('photo-tooltip');
+        let tooltipTimer;
+
+        // Add listeners to ALL photo items, including the clones
+        document.querySelectorAll('.photo-item').forEach(item => {
+            item.addEventListener('mouseenter', e => {
+                const titleText = item.getAttribute('title');
+                if (!titleText) return;
+
+                tooltipTimer = setTimeout(() => {
+                    tooltip.textContent = titleText;
+                    // Position the tooltip near the cursor
+                    tooltip.style.left = `${e.clientX + 15}px`;
+                    tooltip.style.top = `${e.clientY + 15}px`;
+                    tooltip.classList.add('visible');
+                }, 10000); // 2 seconds delay
+            });
+
+            item.addEventListener('mouseleave', () => {
+                clearTimeout(tooltipTimer);
+                tooltip.classList.remove('visible');
+            });
+
+            item.addEventListener('mousemove', e => {
+                // Update position if tooltip is already visible
+                if (tooltip.classList.contains('visible')) {
+                    tooltip.style.left = `${e.clientX + 15}px`;
+                    tooltip.style.top = `${e.clientY + 15}px`;
+                }
+            });
+        });
+
+        // Initial start
+        startAutoScroll();
+    });
+    </script>
+</body>
+</html>
