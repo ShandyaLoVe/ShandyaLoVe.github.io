@@ -14,6 +14,17 @@
     box-sizing: border-box;
 }
 
+::selection {
+    color: #f5f7fa;
+    background: rgba(97, 175, 239, 0.34);
+}
+
+a:focus-visible {
+    outline: 2px solid rgba(97, 175, 239, 0.78);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
 html {
     background: var(--bg-color);
     scroll-behavior: smooth;
@@ -109,6 +120,7 @@ body {
 
 .navigation a.active {
     color: #9fd3f7;
+    font-weight: 600;
     background: linear-gradient(135deg, rgba(97, 175, 239, 0.16), rgba(97, 175, 239, 0.07));
     border-color: rgba(97, 175, 239, 0.2);
     box-shadow: 0 6px 18px rgba(12, 14, 18, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.035);
@@ -124,13 +136,26 @@ body {
     margin-bottom: 34px;
 }
 
-.content-section > div[style*="border-bottom"] {
-    border-color: rgba(255, 255, 255, 0.08) !important;
+.page-header {
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.content-section > div[style*="border-bottom"] img {
+.page-header .page-title {
+    min-width: 0;
+    margin: 0;
+}
+
+.page-header img {
     width: 56px;
-    height: 56px !important;
+    height: 56px;
+    flex: 0 0 56px;
     border-radius: 10px;
     box-shadow: 0 5px 16px rgba(10, 12, 16, 0.22);
     object-fit: cover;
@@ -141,10 +166,12 @@ body {
     font-weight: 650;
     line-height: 1.18;
     letter-spacing: -0.035em;
+    text-wrap: balance;
 }
 
 .content-section p {
     line-height: 1.72;
+    text-wrap: pretty;
 }
 
 .about-section > p {
@@ -216,8 +243,8 @@ body {
 }
 
 .item .thumbnail {
-    width: 210px;
-    height: 132px;
+    width: 232px;
+    height: 145px;
     margin: 0;
     border: 0;
     border-radius: 8px;
@@ -229,6 +256,7 @@ body {
     font-size: 1.03rem;
     line-height: 1.45;
     letter-spacing: -0.015em;
+    text-wrap: balance;
 }
 
 .item-details .description {
@@ -239,12 +267,17 @@ body {
 /* Publication cards */
 .pub-card {
     gap: 22px;
+    margin-bottom: 12px;
     padding: 18px;
     background: linear-gradient(145deg, #21262d, #20242a);
     border: 1px solid rgba(255, 255, 255, 0.065);
     border-radius: 11px;
     box-shadow: 0 5px 18px rgba(12, 14, 18, 0.1);
     transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.pub-card:last-child {
+    margin-bottom: 0;
 }
 
 .pub-card:hover {
@@ -271,6 +304,7 @@ body {
     font-weight: 620;
     line-height: 1.45;
     letter-spacing: -0.015em;
+    text-wrap: balance;
 }
 
 .pub-authors {
@@ -314,6 +348,7 @@ body {
 .award-title {
     color: var(--heading-color);
     letter-spacing: -0.012em;
+    text-wrap: balance;
 }
 
 .award-badge,
@@ -336,6 +371,7 @@ body {
 .life-card h3 {
     color: var(--heading-color);
     letter-spacing: -0.015em;
+    text-wrap: balance;
 }
 
 .photo-item,
@@ -357,8 +393,50 @@ body {
     }
 
     .sidebar {
+        display: grid;
+        grid-template-areas:
+            "profile info"
+            "nav nav";
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 16px 24px;
+        align-items: center;
         width: 100%;
         margin-bottom: 26px;
+        padding: 22px 24px;
+    }
+
+    .profile-card {
+        grid-area: profile;
+    }
+
+    .profile-card .avatar {
+        width: 112px;
+        height: 112px;
+        margin-bottom: 0;
+    }
+
+    .profile-card h1 {
+        margin: 9px 0 0;
+        font-size: 1.35rem;
+    }
+
+    .info-list {
+        grid-area: info;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px 18px;
+        margin: 0;
+    }
+
+    .info-list li {
+        min-width: 0;
+        min-height: 30px;
+        margin: 0;
+    }
+
+    .info-list a,
+    .info-list span {
+        overflow-wrap: anywhere;
     }
 
     .main-content {
@@ -367,7 +445,10 @@ body {
     }
 
     .navigation {
+        grid-area: nav;
         grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin: 0;
+        padding-top: 15px;
     }
 
     .navigation a {
@@ -390,12 +471,52 @@ body {
     }
 
     .sidebar {
-        padding: 20px;
+        grid-template-columns: 112px minmax(0, 1fr);
+        gap: 14px 18px;
+        padding: 18px;
     }
 
     .profile-card .avatar {
-        width: 128px;
-        height: 128px;
+        width: 92px;
+        height: 92px;
+    }
+
+    .profile-card h1 {
+        margin-top: 7px;
+        font-size: 1.22rem;
+    }
+
+    .info-list {
+        grid-template-columns: 1fr;
+        gap: 1px;
+    }
+
+    .info-list li {
+        min-height: 25px;
+        font-size: 0.84rem;
+    }
+
+    .info-list svg {
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+    }
+
+    .page-header {
+        min-height: 64px;
+        gap: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 13px;
+    }
+
+    .page-header .page-title {
+        font-size: clamp(1.65rem, 7vw, 2rem);
+    }
+
+    .page-header img {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
     }
 
     .about-section > p,
@@ -418,6 +539,36 @@ body {
         width: 100%;
         height: auto;
         aspect-ratio: 16 / 10;
+    }
+}
+
+@media (max-width: 440px) {
+    .sidebar {
+        grid-template-columns: 96px minmax(0, 1fr);
+        gap: 12px 14px;
+        padding: 16px;
+    }
+
+    .profile-card .avatar {
+        width: 78px;
+        height: 78px;
+    }
+
+    .profile-card h1 {
+        font-size: 1.12rem;
+    }
+
+    .navigation {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (hover: none) {
+    .item:hover,
+    .pub-card:hover,
+    .award-card:hover,
+    .life-page .life-card:hover {
+        transform: none;
     }
 }
 
