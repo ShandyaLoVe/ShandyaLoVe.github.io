@@ -566,6 +566,7 @@ body {
 @media (hover: none) {
     .item:hover,
     .pub-card:hover,
+    .competition-card:hover,
     .award-card:hover,
     .life-page .life-card:hover {
         transform: none;

@@ -50,44 +50,18 @@
             position: relative;
             display: flex;
             overflow: hidden;
-            background: linear-gradient(135deg, rgba(34, 39, 46, 0.98), rgba(29, 34, 40, 0.98));
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: linear-gradient(145deg, #21262d, #20242a);
+            border: 1px solid rgba(255, 255, 255, 0.065);
             border-radius: 11px;
-            box-shadow: 0 6px 18px rgba(12, 14, 18, 0.12);
+            box-shadow: 0 5px 18px rgba(12, 14, 18, 0.1);
             isolation: isolate;
-            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-        }
-        .competition-card::before {
-            content: "";
-            position: absolute;
-            inset: 0 auto 0 0;
-            width: 3px;
-            background: linear-gradient(180deg, #737b86, #555d67);
-            opacity: 0.56;
-            z-index: 3;
-            transition: background 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
-        }
-        .competition-card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background: linear-gradient(115deg, rgba(var(--competition-accent-rgb), 0.065), transparent 34%);
-            opacity: 0;
-            z-index: 0;
-            transition: opacity 0.25s ease;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
         }
         .competition-card:hover {
-            border-color: rgba(var(--competition-accent-rgb), 0.32);
-            box-shadow: 0 13px 28px rgba(12, 14, 18, 0.24);
-            transform: translateY(-2px);
+            border-color: rgba(97, 175, 239, 0.34);
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-3px);
         }
-        .competition-card:hover::before {
-            background: linear-gradient(180deg, #7fa1c3, #6482ad);
-            box-shadow: 3px 0 13px rgba(var(--competition-accent-rgb), 0.16);
-            opacity: 0.92;
-        }
-        .competition-card:hover::after { opacity: 1; }
 
         .competition-content {
             position: relative;
@@ -164,17 +138,7 @@
             justify-content: center;
             min-height: 184px;
             overflow: hidden;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.035), transparent 62%);
-            transition: background 0.25s ease;
-        }
-        .competition-visual::before {
-            content: "";
-            position: absolute;
-            width: 132px;
-            height: 132px;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 50%;
-            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            background: transparent;
         }
         .competition-visual::after {
             content: "";
@@ -218,14 +182,6 @@
             transform: translateY(-2px) scale(1.018);
             filter: drop-shadow(0 15px 13px rgba(0, 0, 0, 0.42));
         }
-        .competition-card--visual:hover .competition-visual {
-            background: radial-gradient(circle at center, rgba(var(--competition-accent-rgb), 0.1), transparent 62%);
-        }
-        .competition-card--visual:hover .competition-visual::before {
-            border-color: rgba(var(--competition-accent-rgb), 0.18);
-            box-shadow: 0 0 28px rgba(var(--competition-accent-rgb), 0.06);
-        }
-
         /* Section subtitle */
         .section-subtitle {
             font-size: 1.2em;
@@ -246,7 +202,6 @@
             .competition-title { font-size: 0.94rem; }
             .competition-description { font-size: 0.82rem; line-height: 1.55; }
             .competition-visual { min-height: 100%; }
-            .competition-visual::before { width: 104px; height: 104px; }
             .vehicle-turntable { width: calc(100% - 14px); height: calc(100% - 14px); }
         }
         @media (max-width: 460px) {
