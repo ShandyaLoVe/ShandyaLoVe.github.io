@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Others | Shandya</title>
+    <title>Shandya | Projects</title>
     <link rel="icon" href="figure/logo.jpg" type="image/jpeg">
     <style>
         :root { --bg-color: #282c34; --sidebar-bg-color: #21252b; --text-color: #abb2bf; --link-color: #61afef; --heading-color: #e6e6e6; --border-color: #3b4048; }
@@ -38,122 +38,192 @@
 
         .content-section { margin-bottom: 40px; }
 
-        /* ===== Award Card Styles ===== */
-        .award-card {
-            display: flex;
-            align-items: stretch;
-            margin-bottom: 16px;
-            background-color: var(--sidebar-bg-color);
-            border: 0.8px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: border-color 0.3s ease, transform 0.2s ease;
+        /* ===== Competition Cards ===== */
+        .competition-list {
+            --competition-accent: #7fa1c3;
+            --competition-accent-rgb: 127, 161, 195;
+            display: grid;
+            gap: 12px;
         }
-        .award-card:hover {
-            border-color: var(--link-color);
+
+        .competition-card {
+            position: relative;
+            display: flex;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(34, 39, 46, 0.98), rgba(29, 34, 40, 0.98));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 11px;
+            box-shadow: 0 6px 18px rgba(12, 14, 18, 0.12);
+            isolation: isolate;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .competition-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 3px;
+            background: linear-gradient(180deg, #737b86, #555d67);
+            opacity: 0.56;
+            z-index: 3;
+            transition: background 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+        }
+        .competition-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(115deg, rgba(var(--competition-accent-rgb), 0.065), transparent 34%);
+            opacity: 0;
+            z-index: 0;
+            transition: opacity 0.25s ease;
+        }
+        .competition-card:hover {
+            border-color: rgba(var(--competition-accent-rgb), 0.32);
+            box-shadow: 0 13px 28px rgba(12, 14, 18, 0.24);
             transform: translateY(-2px);
         }
+        .competition-card:hover::before {
+            background: linear-gradient(180deg, #7fa1c3, #6482ad);
+            box-shadow: 3px 0 13px rgba(var(--competition-accent-rgb), 0.16);
+            opacity: 0.92;
+        }
+        .competition-card:hover::after { opacity: 1; }
 
-        /* Left accent bar */
-        .award-accent {
-            width: 4px;
-            flex-shrink: 0;
+        .competition-content {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            min-width: 0;
+            padding: 18px 20px 17px 24px;
         }
-        .accent-gold { background: linear-gradient(180deg, #e2b340, #c9983a); }
-        .accent-silver { background: linear-gradient(180deg, #8eaadb, #6b8fc4); }
-        .accent-bronze { background: linear-gradient(180deg, #c08b5c, #a3714a); }
-
-        /* Icon area */
-        .award-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 64px;
-            flex-shrink: 0;
-            padding: 16px 0;
-        }
-        .award-icon svg {
-            width: 30px;
-            height: 30px;
-            opacity: 0.7;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-        .award-card:hover .award-icon svg {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        .icon-gold svg { fill: #e2b340; }
-        .icon-silver svg { fill: #8eaadb; }
-        .icon-bronze svg { fill: #c08b5c; }
-
-        /* Content area */
-        .award-content {
-            flex-grow: 1;
-            padding: 16px 20px 16px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .award-title {
-            font-weight: 600;
-            font-size: 1em;
+        .competition-title {
+            margin: 0;
             color: var(--heading-color);
-            margin: 0;
-            line-height: 1.5;
+            font-size: 1rem;
+            font-weight: 620;
+            line-height: 1.45;
+            letter-spacing: -0.018em;
+            text-wrap: balance;
         }
-
-        .award-meta {
+        .competition-tags {
             display: flex;
             align-items: center;
-            gap: 10px;
             flex-wrap: wrap;
-            margin: 0;
+            gap: 7px;
+            margin-top: 10px;
         }
-
-        .award-badge {
+        .competition-tag {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            padding: 2px 10px;
-            font-size: 0.8em;
-            font-weight: 500;
-            border-radius: 4px;
-            letter-spacing: 0.3px;
+            min-height: 22px;
+            padding: 2px 9px;
+            color: #aab2bd;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.075);
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: 0.015em;
+            text-decoration: none;
+            transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
         }
-        .badge-gold {
-            color: #e2b340;
-            background-color: rgba(226, 179, 64, 0.1);
-            border: 1px solid rgba(226, 179, 64, 0.25);
+        .competition-tag--award {
+            color: #abb3be;
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.08);
         }
-        .badge-silver {
-            color: #8eaadb;
-            background-color: rgba(142, 170, 219, 0.1);
-            border: 1px solid rgba(142, 170, 219, 0.25);
+        .competition-card:hover .competition-tag--award {
+            color: #b7cee4;
+            background: rgba(var(--competition-accent-rgb), 0.13);
+            border-color: rgba(var(--competition-accent-rgb), 0.3);
         }
-        .badge-bronze {
-            color: #c08b5c;
-            background-color: rgba(192, 139, 92, 0.1);
-            border: 1px solid rgba(192, 139, 92, 0.25);
+        a.competition-tag:hover {
+            color: #d8e6f1;
+            background: rgba(var(--competition-accent-rgb), 0.13);
+            border-color: rgba(var(--competition-accent-rgb), 0.32);
+        }
+        .competition-description {
+            max-width: 780px;
+            margin: 12px 0 0;
+            color: #98a1ad;
+            font-size: 0.86rem;
+            line-height: 1.62;
         }
 
-        .award-links a {
-            display: inline-block;
-            padding: 2px 10px;
-            font-size: 0.8em;
-            font-weight: 500;
-            color: var(--text-color);
-            background-color: rgba(171, 178, 191, 0.08);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            text-decoration: none;
-            transition: all 0.2s ease;
+        .competition-card--visual {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 190px;
+            min-height: 184px;
         }
-        .award-links a:hover {
-            color: var(--heading-color);
-            background-color: rgba(171, 178, 191, 0.15);
-            border-color: var(--text-color);
+        .competition-visual {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 184px;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.035), transparent 62%);
+            transition: background 0.25s ease;
+        }
+        .competition-visual::before {
+            content: "";
+            position: absolute;
+            width: 132px;
+            height: 132px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 50%;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .competition-visual::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 13px;
+            width: 112px;
+            height: 18px;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.34), transparent 68%);
+        }
+        .vehicle-turntable {
+            position: relative;
+            z-index: 1;
+            isolation: isolate;
+            width: calc(100% - 22px);
+            height: calc(100% - 18px);
+            transform-origin: center;
+            filter: drop-shadow(0 12px 11px rgba(0, 0, 0, 0.36));
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        .vehicle-roll-frame {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: transparent;
+            opacity: 0;
+            pointer-events: none;
+            user-select: none;
+            visibility: hidden;
+            will-change: opacity;
+        }
+        .vehicle-roll-frame.is-active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .competition-card--visual:hover .vehicle-turntable {
+            transform: translateY(-2px) scale(1.018);
+            filter: drop-shadow(0 15px 13px rgba(0, 0, 0, 0.42));
+        }
+        .competition-card--visual:hover .competition-visual {
+            background: radial-gradient(circle at center, rgba(var(--competition-accent-rgb), 0.1), transparent 62%);
+        }
+        .competition-card--visual:hover .competition-visual::before {
+            border-color: rgba(var(--competition-accent-rgb), 0.18);
+            box-shadow: 0 0 28px rgba(var(--competition-accent-rgb), 0.06);
         }
 
         /* Section subtitle */
@@ -171,11 +241,22 @@
 
         @media (max-width: 900px) { .container { flex-direction: column; } .sidebar { position: static; width: 100%; margin-bottom: 40px; } .main-content { padding-left: 0; } }
         @media (max-width: 600px) {
-            .award-icon { width: 48px; }
-            .award-icon svg { width: 24px; height: 24px; }
-            .award-content { padding: 12px 14px 12px 0; }
+            .competition-card--visual { grid-template-columns: minmax(0, 1fr) 138px; min-height: 0; }
+            .competition-content { padding: 16px 16px 15px 20px; }
+            .competition-title { font-size: 0.94rem; }
+            .competition-description { font-size: 0.82rem; line-height: 1.55; }
+            .competition-visual { min-height: 100%; }
+            .competition-visual::before { width: 104px; height: 104px; }
+            .vehicle-turntable { width: calc(100% - 14px); height: calc(100% - 14px); }
+        }
+        @media (max-width: 460px) {
+            .competition-card--visual { grid-template-columns: 1fr; }
+            .competition-card--visual .competition-content { order: 2; padding-top: 12px; }
+            .competition-visual { order: 1; height: 145px; min-height: 0; }
+            .vehicle-turntable { width: calc(100% - 30px); }
         }
     </style>
+    <link rel="stylesheet" href="polish.css">
 </head>
 <body>
     <div class="container">
@@ -187,94 +268,143 @@
             <ul class="info-list">
                 <li><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg><span>M.S. @ Zhejiang University</span></li>
                 <li><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg><span>Hangzhou, China</span></li>
-                <li><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg><a href="mailto:lilinshanjsu@163.com">Email</a></li>
+                <li><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg><a href="mailto:shandyali@gmail.com">Email</a></li>
                 <li><svg viewBox="0 0 24 24"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1-1 .1-1 .1-1 1.1.1 1.7 1.2 1.7 1.2.9 1.6 2.5 1.2 3.1.9.1-.7.4-1.2.8-1.4-2.4-.3-4.9-1.2-4.9-5.3 0-1.2.4-2.1 1.1-2.9-.1-.3-.5-1.4.1-2.8 0 0 .9-.3 3.1 1.2.9-.2 1.9-.4 2.8-.4s1.9.1 2.8.4c2.2-1.5 3.1-1.2 3.1-1.2.6 1.4.2 2.5.1 2.8.7.7 1.1 1.7 1.1 2.9 0 4.1-2.5 5-4.9 5.3.4.3.8 1 .8 1.9v2.8c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"></path></svg><a href="https://github.com/ShandyaLoVe" target="_blank">GitHub</a></li>
-                <li><svg viewBox="0 0 24 24" style="fill:#a1ca60;"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zM7.6 18.44c-1.2-.28-1.5-.76-1.53-.8-.05-.1-.1-.13-.1-.14-.03-.02-.06-.03-.1-.03-.05 0-.1.02-.12.04-.02.02-.04.05-.04.1 0 .04.1.12.25.3.15.17.48.56 1.17.7.7.15 1.48.06 1.9-.22.1-.07.1-.17.1-.2 0-.02 0-.03-.02-.04-.02-.02-.05-.03-.1-.03s-.1.02-.13.04c-.4.2-1.1.28-1.7.1zM9.9 19.95c-.9-.45-1.23-1-1.26-1.07-.03-.07-.06-.1-.08-.12-.02-.02-.05-.03-.1-.03-.05 0-.1.02-.12.04-.03.02-.05.05-.05.1s.06.2.2.35c.14.15.5.58 1.27.97.77.4 1.62.46 2.08.2.1-.05.16-.14.16-.18 0-.04-.02-.06-.05-.08-.03-.02-.06-.02-.12-.02-.05 0-.1.02-.15.04-.5.2-1.32.18-1.9-.2zM12.17 21.2c-.56-.5-.73-1.15-.76-1.24-.03-.1-.06-.13-.08-.15-.02-.02-.05-.03-.1-.03-.05 0-.1.02-.13.04-.02.02-.04.06-.04.12 0 .05.05.2.16.4.1.22.45.88 1.2 1.34.75.45 1.63.53 2.1.3.1-.04.18-.13.18-.2 0-.03-.02-.06-.05-.08-.03-.02-.06-.03-.12-.03s-.12.02-.16.04c-.52.2-1.35.16-1.9-.3zM15.1 20.6c-.2-.7-.2-1.3-.2-1.35 0-.05-.02-.1-.05-.12s-.06-.03-.12-.03c-.05 0-.1.02-.14.04-.04.02-.08.06-.08.13 0 .07.02.5.06 1.1.04.6.13 1.18.28 1.62.03.1.1.15.15.15.05 0 .1-.02.1-.08.02-.12-.02-.8-.06-1.4zM18.3 18.4c-.65-.75-.8-1.4-.8-1.5s0-.15.02-.2c0-.04-.02-.07-.05-.1-.03-.02-.06-.03-.12-.03-.05 0-.1.02-.14.04-.04.02-.08.06-.08.13 0 .06.05.5.46 1.5.4.98.8 1.55 1.17 1.7.1.04.16.06.2.06.05 0 .1-.02.1-.08 0-.08-.2-.7-.6-1.5z"></path></svg><a href="https://orcid.org/0009-0009-5774-8311" target="_blank">ORCID</a></li>
+                <li><svg viewBox="0 0 24 24" style="fill:#a1ca60;"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zM7.6 18.44c-1.2-.28-1.5-.76-1.53-.8-.05-.1-.1-.13-.1-.14-.03-.02-.06-.03-.1-.03-.05 0-.1.02-.12.04-.02.02-.04.05-.04.1 0 .04.1.12.25.3.15.17.48.56 1.17.7.7.15 1.48.06 1.9-.22.1-.07.1-.17.1-.2 0-.02 0-.03-.02-.04-.02-.02-.05-.03-.1-.03s-.1.02-.13.04c-.4.2-1.1.28-1.7.1zM9.9 19.95c-.9-.45-1.23-1-1.26-1.07-.03-.07-.06-.1-.08-.12-.02-.02-.05-.03-.1-.03-.05 0-.1.02-.12.04-.03.02-.05.05-.05.1s.06.2.2.35c.14.15.5.58 1.27.97.77.4 1.62.46 2.08.2.1-.05.16-.14.16-.18 0-.04-.02-.06-.05-.08-.03-.02-.06-.02-.12-.02-.05 0-.1.02-.15.04-.5.2-1.32.18-1.9-.2zM12.17 21.2c-.56-.5-.73-1.15-.76-1.24-.03-.1-.06-.13-.08-.15-.02-.02-.05-.03-.1-.03-.05 0-.1.02-.13.04-.02.02-.04.06-.04.12 0 .05.05.2.16.4.1.22.45.88 1.2 1.34.75.45 1.63.53 2.1.3.1-.04.18-.13.18-.2 0-.03-.02-.06-.05-.08-.03-.02-.06-.03-.12-.03s-.12.02-.16.04c-.52.2-1.35.16-1.9-.3zM15.1 20.6c-.2-.7-.2-1.3-.2-1.35 0-.05-.02-.1-.05-.12s-.06-.03-.12-.03c-.05 0-.1.02-.14.04-.04.02-.08.06-.08.13 0 .07.02.5.06 1.1.04.6.13 1.18.28 1.62.03.1.1.15.15.15.05 0 .1-.02.1-.08.02-.12-.02-.8-.06-1.4zM18.3 18.4c-.65-.75-.8-1.4-.8-1.5s0-.15.02-.2c0-.04-.02-.07-.05-.1-.03-.02-.06-.03-.12-.03-.05 0-.1.02-.14.04-.04.02-.08.06-.08.13 0 .06.05.5.46 1.5.4.98.8 1.55 1.17 1.7.1.04.16.06.2.06.05 0 .1-.02.1-.08 0-.08-.2-.7-.6-1.5z"></path></svg><a href="https://orcid.org/0009-0009-5774-8371" target="_blank">ORCID</a></li>
             </ul>
-            <nav class="navigation">
+            <nav class="navigation" aria-label="Primary navigation">
                 <a href="index.html">About Me</a>
                 <a href="publications.html">Publications</a>
-                <a href="others.html" class="active">Others</a>
+                <a href="others.html" class="active" aria-current="page">Projects</a>
                 <a href="life.html">Life</a>
             </nav>
         </aside>
 
         <main class="main-content">
             <section class="content-section">
-                <div style="display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 24px;">
-                    <h2 class="page-title" style="margin: 0;">Projects & Competitions</h2>
-                    <img src="figure/logo.jpg" alt="Logo" style="height:60px;">
+                <div class="page-header">
+                    <h2 class="page-title">Projects & Competitions</h2>
+                    <img src="figure/logo.jpg" alt="Shandya logo">
                 </div>
-
-                <!-- trophy SVG used: M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z -->
 
                 <h3 class="section-subtitle">Competitions</h3>
 
-                <!-- Competition 1 -->
-                <article class="award-card">
-                    <div class="award-accent accent-gold"></div>
-                    <div class="award-icon icon-gold">
-                        <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
-                    </div>
-                    <div class="award-content">
-                        <p class="award-title">International College Student Intelligent Agricultural Equipment Innovation Competition</p>
-                        <div class="award-meta">
-                            <span class="award-badge badge-gold">National Second Prize</span>
-                            <span class="award-links">
-                                <a href="https://youtu.be/MSj6zK4j_dU" target="_blank">Video</a>
-                                <a href="https://github.com/ShandyaLoVe/Dongfanghong" target="_blank">Code</a>
-                            </span>
+                <div class="competition-list">
+                    <article class="competition-card competition-card--visual">
+                        <div class="competition-content">
+                            <h4 class="competition-title">International College Student Intelligent Agricultural Equipment Innovation Competition</h4>
+                            <div class="competition-tags" aria-label="Competition resources">
+                                <span class="competition-tag competition-tag--award">Award · National Second Prize</span>
+                                <a class="competition-tag" href="https://youtu.be/MSj6zK4j_dU" target="_blank" rel="noopener noreferrer">Video</a>
+                                <a class="competition-tag" href="https://github.com/ShandyaLoVe/Dongfanghong" target="_blank" rel="noopener noreferrer">Code</a>
+                            </div>
+                            <p class="competition-description">Designed a fully autonomous mobile platform for agricultural navigation and irrigation. The system integrates four custom PCBs—power, drive, motion control, and task control—with ultrasonic, photoelectric, inertial, and vision sensors.</p>
                         </div>
-                    </div>
-                </article>
-
-                <!-- Competition 2 -->
-                <article class="award-card">
-                    <div class="award-accent accent-gold"></div>
-                    <div class="award-icon icon-gold">
-                        <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
-                    </div>
-                    <div class="award-content">
-                        <p class="award-title">Siemens Intelligent Manufacturing Challenge (Information Network Direction)</p>
-                        <div class="award-meta">
-                            <span class="award-badge badge-gold">National Second Prize</span>
+                        <div class="competition-visual" data-wheel-roll role="img" aria-label="45-degree view of the intelligent agricultural equipment prototype">
+                            <div class="vehicle-turntable" aria-hidden="true">
+                                <img class="vehicle-roll-frame is-active" src="figure/vehicle-wheel-roll/frame-00.webp" alt="" loading="eager" draggable="false">
+                                <img class="vehicle-roll-frame" src="figure/vehicle-wheel-roll/frame-01.webp" alt="" loading="eager" draggable="false">
+                                <img class="vehicle-roll-frame" src="figure/vehicle-wheel-roll/frame-02.webp" alt="" loading="eager" draggable="false">
+                                <img class="vehicle-roll-frame" src="figure/vehicle-wheel-roll/frame-03.webp" alt="" loading="eager" draggable="false">
+                                <img class="vehicle-roll-frame" src="figure/vehicle-wheel-roll/frame-04.webp" alt="" loading="eager" draggable="false">
+                                <img class="vehicle-roll-frame" src="figure/vehicle-wheel-roll/frame-05.webp" alt="" loading="eager" draggable="false">
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
 
-                <!-- Competition 3 -->
-                <article class="award-card">
-                    <div class="award-accent accent-gold"></div>
-                    <div class="award-icon icon-gold">
-                        <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
-                    </div>
-                    <div class="award-content">
-                        <p class="award-title">Global Campus Artificial Intelligence Algorithm Elite Competition</p>
-                        <div class="award-meta">
-                            <span class="award-badge badge-gold">National Second Prize</span>
+                    <article class="competition-card">
+                        <div class="competition-content">
+                            <h4 class="competition-title">Siemens Intelligent Manufacturing Challenge (Information Network Direction)</h4>
+                            <div class="competition-tags" aria-label="Competition result">
+                                <span class="competition-tag competition-tag--award">Award · National Second Prize</span>
+                            </div>
+                            <p class="competition-description">Designed an industrial information-network solution for intelligent manufacturing, covering network configuration, device communication, system integration, and reliable data exchange.</p>
                         </div>
-                    </div>
-                </article>
+                    </article>
 
-                <!-- Competition 4 -->
-                <article class="award-card">
-                    <div class="award-accent accent-bronze"></div>
-                    <div class="award-icon icon-bronze">
-                        <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
-                    </div>
-                    <div class="award-content">
-                        <p class="award-title">China College Student Service Outsourcing Innovation and Entrepreneurship Competition</p>
-                        <div class="award-meta">
-                            <span class="award-badge badge-bronze">National Third Prize</span>
-                            <span class="award-links">
-                                <a href="https://github.com/ShandyaLoVe/FWWB_front-end_code" target="_blank">Code</a>
-                            </span>
+                    <article class="competition-card">
+                        <div class="competition-content">
+                            <h4 class="competition-title">Global Campus Artificial Intelligence Algorithm Elite Competition</h4>
+                            <div class="competition-tags" aria-label="Competition result">
+                                <span class="competition-tag competition-tag--award">Award · National Second Prize</span>
+                            </div>
+                            <p class="competition-description">Developed an end-to-end algorithm workflow for the competition task, spanning data processing, model training, evaluation, and iterative performance optimization.</p>
                         </div>
-                    </div>
-                </article>
+                    </article>
 
+                    <article class="competition-card">
+                        <div class="competition-content">
+                            <h4 class="competition-title">China College Student Service Outsourcing Innovation and Entrepreneurship Competition</h4>
+                            <div class="competition-tags" aria-label="Competition resources">
+                                <span class="competition-tag competition-tag--award">Award · National Third Prize</span>
+                                <a class="competition-tag" href="https://github.com/ShandyaLoVe/FWWB_front-end_code" target="_blank" rel="noopener noreferrer">Code</a>
+                            </div>
+                            <p class="competition-description">Designed and implemented a Vue-based competition front end, focusing on information architecture, dashboard presentation, reusable components, and service-workflow interaction.</p>
+                        </div>
+                    </article>
+                </div>
             </section>
         </main>
     </div>
+    <script>
+        document.querySelectorAll('[data-wheel-roll]').forEach((visual) => {
+            const frames = [...visual.querySelectorAll('.vehicle-roll-frame')];
+            let activeFrame = 0;
+            let animationFrameId = null;
+            let lastFrameAt = 0;
+            let isHovering = false;
+            const frameDuration = 155;
+            const framesReady = Promise.all(frames.map((frame) => (
+                typeof frame.decode === 'function' ? frame.decode().catch(() => {}) : Promise.resolve()
+            )));
+
+            const showFrame = (nextFrame) => {
+                frames[activeFrame].classList.remove('is-active');
+                activeFrame = nextFrame % frames.length;
+                frames[activeFrame].classList.add('is-active');
+            };
+
+            const advanceFrame = (timestamp) => {
+                if (!lastFrameAt) lastFrameAt = timestamp;
+                const elapsed = timestamp - lastFrameAt;
+
+                if (elapsed >= frameDuration) {
+                    const frameSteps = Math.floor(elapsed / frameDuration);
+                    showFrame(activeFrame + frameSteps);
+                    lastFrameAt += frameSteps * frameDuration;
+                }
+
+                animationFrameId = window.requestAnimationFrame(advanceFrame);
+            };
+
+            const beginRolling = () => {
+                if (animationFrameId !== null) return;
+                lastFrameAt = 0;
+                animationFrameId = window.requestAnimationFrame(advanceFrame);
+            };
+
+            const startRolling = () => {
+                isHovering = true;
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                visual.classList.add('is-rolling');
+                framesReady.then(() => {
+                    if (isHovering) beginRolling();
+                });
+            };
+
+            const stopRolling = () => {
+                isHovering = false;
+                if (animationFrameId !== null) window.cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+                lastFrameAt = 0;
+                visual.classList.remove('is-rolling');
+                showFrame(0);
+            };
+
+            visual.addEventListener('pointerenter', startRolling);
+            visual.addEventListener('pointerleave', stopRolling);
+            visual.addEventListener('pointercancel', stopRolling);
+        });
+    </script>
 </body>
 </html>
